@@ -7,148 +7,97 @@
   <style>
     body {
       margin: 0;
-      padding: 0;
+      background: radial-gradient(ellipse at bottom, #0d0d0d 0%, #000000 100%);
       overflow: hidden;
-      height: 100vh;
-      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-      font-family: 'Segoe UI', cursive;
+      font-family: 'Segoe Script', cursive;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      cursor: pointer;
+      height: 100vh;
       position: relative;
     }
 
-    /* Yıldızlar */
-    body::before {
-      content: '';
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
-      border-radius: 50%;
-      box-shadow:
-        50px 100px white, 120px 200px white, 200px 300px white,
-        300px 400px white, 500px 150px white, 600px 250px white,
-        700px 350px white, 800px 100px white, 900px 180px white;
-      animation: sparkle 6s linear infinite;
+    /* Neon animasyon */
+    @keyframes neonGlow {
+      0% {
+        stroke: #ff4da6;
+        filter: drop-shadow(0 0 4px #ff4da6) drop-shadow(0 0 8px #ff4da6);
+      }
+      50% {
+        stroke: #ff89c2;
+        filter: drop-shadow(0 0 6px #ff89c2) drop-shadow(0 0 12px #ff89c2);
+      }
+      100% {
+        stroke: #ff4da6;
+        filter: drop-shadow(0 0 4px #ff4da6) drop-shadow(0 0 8px #ff4da6);
+      }
     }
 
-    @keyframes sparkle {
-      0%, 100% { opacity: 0.8; }
-      50% { opacity: 0.3; }
-    }
-
-    /* Kalp çizimi */
     svg {
-      width: 280px; /* Daha büyük */
-      height: 280px;
-      stroke: #ff4da6;
-      stroke-width: 1.2; /* Daha ince çizgi */
+      width: 380px;
+      height: 380px;
       fill: none;
+      stroke-width: 1;
       stroke-dasharray: 2000;
       stroke-dashoffset: 2000;
-      animation: drawHeart 8s ease forwards;
-      z-index: 2;
+      animation:
+        draw 8s ease forwards,
+        neonGlow 2s infinite ease-in-out;
     }
 
-    @keyframes drawHeart {
+    @keyframes draw {
       to {
         stroke-dashoffset: 0;
       }
     }
 
-    /* Beril yazısı */
-    .name {
+    .beril {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
       color: #ff4da6;
-      font-size: 2.5rem;
-      margin-top: -1rem;
       opacity: 0;
-      animation: fadeInText 1.5s ease 5s forwards; /* Daha erken */
-      text-shadow: 0 0 10px #ff4da6, 0 0 20px #ff77e9;
-      pointer-events: none;
-      z-index: 2;
+      text-shadow: 0 0 8px #ff4da6, 0 0 16px #ff4da6;
+      animation: fadeInBeril 2s ease 7s forwards;
     }
 
-    @keyframes fadeInText {
-      to { opacity: 1; }
+    @keyframes fadeInBeril {
+      to {
+        opacity: 1;
+      }
     }
 
-    .floating-text {
+    /* Müzik kontrolü */
+    audio {
       position: absolute;
-      color: #ffb6d9;
-      font-size: 1.1rem;
-      font-weight: bold;
-      opacity: 0;
-      animation: flyUp 3.5s ease forwards;
-      pointer-events: none;
-      white-space: nowrap;
-      text-shadow: 0 0 10px #ffb6d9, 0 0 20px #ff4da6;
-      z-index: 2;
-    }
-
-    @keyframes flyUp {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-200px); opacity: 0; }
-    }
-
-    .spark {
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.8;
-      box-shadow: 0 0 10px #fff;
-      animation: sparkleMove 2s linear forwards;
-    }
-
-    @keyframes sparkleMove {
-      0% { transform: scale(0.5); opacity: 0.8; }
-      50% { transform: scale(1.2); opacity: 1; }
-      100% { transform: scale(0); opacity: 0; }
+      bottom: 20px;
+      left: 20px;
+      z-index: 10;
     }
   </style>
 </head>
-<body onclick="spawnMessage(event)">
+<body>
 
-  <!-- Kalp -->
+  <!-- Kalp SVG -->
   <svg viewBox="0 0 24 24">
     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
              2 6 4 4 6.5 4c1.74 0 3.41 1.08 4.22 2.44C11.59 5.08 13.26 4 15 4
-             17.5 4 19.5 6 19.5 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+             17.5 4 19.5 6 19.5 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+          stroke="#ff4da6" />
   </svg>
 
-  <!-- Yazı -->
-  <div class="name">Beril</div>
+  <!-- Beril Yazısı -->
+  <div class="beril">Beril</div>
 
-  <!-- JavaScript -->
-  <script>
-    function spawnMessage(e) {
-      const text = document.createElement('div');
-      text.classList.add('floating-text');
-      text.innerText = "GELECEĞİN EN İYİ PSİKOLOĞU 💗 💕 💞";
-
-      const x = e.clientX || Math.random() * window.innerWidth;
-      const y = e.clientY || window.innerHeight * 0.6;
-
-      text.style.left = `${x}px`;
-      text.style.top = `${y}px`;
-      document.body.appendChild(text);
-
-      for (let i = 0; i < 4; i++) {
-        const spark = document.createElement('div');
-        spark.classList.add('spark');
-        spark.style.left = `${x + (Math.random() * 40 - 20)}px`;
-        spark.style.top = `${y + (Math.random() * 40 - 20)}px`;
-        document.body.appendChild(spark);
-        setTimeout(() => spark.remove(), 2000);
-      }
-
-      setTimeout(() => text.remove(), 3500);
-    }
-  </script>
+  <!-- Müzik (ister otomatik, ister tıklamalı) -->
+  <audio controls autoplay loop>
+    <!-- MP3 veya YouTube dönüştürülmüş link eklenmeli -->
+    <source src="SENIN-MP3-LINKIN.mp3" type="audio/mpeg">
+    Tarayıcın müzik çalmayı desteklemiyor.
+  </audio>
 
 </body>
 </html>
