@@ -25,13 +25,19 @@
       stroke: #ff77e9;
       stroke-width: 4;
       fill: none;
-      stroke-dasharray: 1000;
-      stroke-dashoffset: 1000;
-      animation: drawHeart 3s ease forwards;
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      animation: drawHeart 6s ease forwards;
     }
 
     @keyframes drawHeart {
-      to {
+      0% {
+        stroke-dashoffset: 2000;
+      }
+      50% {
+        stroke-dashoffset: 1000; /* Yarım çiziliyor */
+      }
+      100% {
         stroke-dashoffset: 0;
       }
     }
@@ -41,7 +47,7 @@
       font-size: 2.4rem;
       margin-top: -1.5rem;
       opacity: 0;
-      animation: fadeInText 2s ease 3s forwards;
+      animation: fadeInText 2s ease 6s forwards;
       text-shadow: 0 0 15px #ff77e9, 0 0 25px #ff77e9;
       pointer-events: none;
     }
@@ -55,10 +61,10 @@
     .floating-text {
       position: absolute;
       color: #ffb6c1;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: bold;
       opacity: 0;
-      animation: flyUp 3s ease forwards;
+      animation: flyUp 3.5s ease forwards;
       pointer-events: none;
       white-space: nowrap;
       text-shadow: 0 0 10px #ffb6c1, 0 0 20px #ff77e9;
@@ -78,7 +84,7 @@
 </head>
 <body onclick="spawnMessage(event)">
 
-  <!-- Kalp çizimi -->
+  <!-- Kalp SVG -->
   <svg viewBox="0 0 512 512">
     <path d="M256 464s-186-116-186-271c0-70 57-127 127-127 39 0 73 18 95 47 22-29 56-47 95-47 70 0 127 57 127 127 0 155-186 271-186 271z"/>
   </svg>
@@ -86,14 +92,13 @@
   <!-- Beril yazısı -->
   <div class="name">Beril</div>
 
-  <!-- JavaScript: Her dokunuşta yazı çıkar -->
+  <!-- JavaScript -->
   <script>
     function spawnMessage(e) {
       const text = document.createElement('div');
       text.classList.add('floating-text');
-      text.innerText = "GELECEĞİN EN İYİ PSİKOLOĞU";
+      text.innerText = "GELECEĞİN EN İYİ PSİKOLOĞU 💗 💕 💞";
 
-      // Rastgele veya tıklanılan yerde çıkabilir
       const x = e.clientX || Math.random() * window.innerWidth;
       const y = e.clientY || window.innerHeight * 0.6;
 
@@ -104,7 +109,7 @@
 
       setTimeout(() => {
         text.remove();
-      }, 3000);
+      }, 3500);
     }
   </script>
 
