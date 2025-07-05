@@ -42,14 +42,14 @@
 
     /* Kalp çizimi */
     svg {
-      width: 240px;
-      height: 240px;
+      width: 280px; /* Daha büyük */
+      height: 280px;
       stroke: #ff4da6;
-      stroke-width: 1.8; /* İncelttik */
+      stroke-width: 1.2; /* Daha ince çizgi */
       fill: none;
       stroke-dasharray: 2000;
       stroke-dashoffset: 2000;
-      animation: drawHeart 8s ease forwards; /* Daha yavaş */
+      animation: drawHeart 8s ease forwards;
       z-index: 2;
     }
 
@@ -65,7 +65,7 @@
       font-size: 2.5rem;
       margin-top: -1rem;
       opacity: 0;
-      animation: fadeInText 2s ease 8s forwards;
+      animation: fadeInText 1.5s ease 5s forwards; /* Daha erken */
       text-shadow: 0 0 10px #ff4da6, 0 0 20px #ff77e9;
       pointer-events: none;
       z-index: 2;
@@ -75,7 +75,6 @@
       to { opacity: 1; }
     }
 
-    /* Yazı uçuşturan efekt */
     .floating-text {
       position: absolute;
       color: #ffb6d9;
@@ -90,17 +89,10 @@
     }
 
     @keyframes flyUp {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-200px);
-        opacity: 0;
-      }
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-200px); opacity: 0; }
     }
 
-    /* Parıltı noktaları */
     .spark {
       position: absolute;
       width: 5px;
@@ -121,14 +113,14 @@
 </head>
 <body onclick="spawnMessage(event)">
 
-  <!-- Kalp SVG -->
+  <!-- Kalp -->
   <svg viewBox="0 0 24 24">
     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
              2 6 4 4 6.5 4c1.74 0 3.41 1.08 4.22 2.44C11.59 5.08 13.26 4 15 4
              17.5 4 19.5 6 19.5 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
   </svg>
 
-  <!-- Beril -->
+  <!-- Yazı -->
   <div class="name">Beril</div>
 
   <!-- JavaScript -->
@@ -145,7 +137,6 @@
       text.style.top = `${y}px`;
       document.body.appendChild(text);
 
-      // Parıltı efekti
       for (let i = 0; i < 4; i++) {
         const spark = document.createElement('div');
         spark.classList.add('spark');
