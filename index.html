@@ -8,25 +8,26 @@
     body {
       margin: 0;
       background-color: #000;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Segoe UI', 'Segoe Script', cursive;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
       flex-direction: column;
-      font-family: 'Segoe Script', cursive;
+      position: relative;
+      cursor: pointer;
     }
 
     svg {
-      width: 300px;
-      height: 300px;
+      width: 240px;
+      height: 240px;
       stroke: #ff77e9;
       stroke-width: 4;
       fill: none;
       stroke-dasharray: 1000;
       stroke-dashoffset: 1000;
       animation: drawHeart 3s ease forwards;
-      cursor: pointer;
     }
 
     @keyframes drawHeart {
@@ -37,11 +38,11 @@
 
     .name {
       color: #ff77e9;
-      font-size: 2.5rem;
-      margin-top: -2rem;
+      font-size: 2.4rem;
+      margin-top: -1.5rem;
       opacity: 0;
       animation: fadeInText 2s ease 3s forwards;
-      text-shadow: 0 0 10px #ff77e9, 0 0 20px #ff77e9;
+      text-shadow: 0 0 15px #ff77e9, 0 0 25px #ff77e9;
       pointer-events: none;
     }
 
@@ -51,14 +52,16 @@
       }
     }
 
-    .flying-text {
+    .floating-text {
       position: absolute;
       color: #ffb6c1;
       font-size: 1.2rem;
       font-weight: bold;
-      animation: flyUp 3s ease forwards;
       opacity: 0;
+      animation: flyUp 3s ease forwards;
       pointer-events: none;
+      white-space: nowrap;
+      text-shadow: 0 0 10px #ffb6c1, 0 0 20px #ff77e9;
     }
 
     @keyframes flyUp {
@@ -73,37 +76,37 @@
     }
   </style>
 </head>
-<body>
+<body onclick="spawnMessage(event)">
 
-<!-- Kalp SVG -->
-<svg viewBox="0 0 512 512" id="heart">
-  <path d="M256 464s-186-116-186-271c0-70 57-127 127-127 39 0 73 18 95 47 22-29 56-47 95-47 70 0 127 57 127 127 0 155-186 271-186 271z"/>
-</svg>
+  <!-- Kalp çizimi -->
+  <svg viewBox="0 0 512 512">
+    <path d="M256 464s-186-116-186-271c0-70 57-127 127-127 39 0 73 18 95 47 22-29 56-47 95-47 70 0 127 57 127 127 0 155-186 271-186 271z"/>
+  </svg>
 
-<!-- Beril yazısı -->
-<div class="name">Beril</div>
+  <!-- Beril yazısı -->
+  <div class="name">Beril</div>
 
-<!-- JavaScript -->
-<script>
-  const heart = document.getElementById('heart');
+  <!-- JavaScript: Her dokunuşta yazı çıkar -->
+  <script>
+    function spawnMessage(e) {
+      const text = document.createElement('div');
+      text.classList.add('floating-text');
+      text.innerText = "GELECEĞİN EN İYİ PSİKOLOĞU";
 
-  heart.addEventListener('click', () => {
-    const text = document.createElement('div');
-    text.classList.add('flying-text');
-    text.innerText = "GELECEĞİN EN İYİ PSİKOLOĞU";
+      // Rastgele veya tıklanılan yerde çıkabilir
+      const x = e.clientX || Math.random() * window.innerWidth;
+      const y = e.clientY || window.innerHeight * 0.6;
 
-    // Rastgele yatay konum
-    text.style.left = Math.random() * 80 + 10 + "vw";
-    text.style.top = "60vh";
+      text.style.left = `${x}px`;
+      text.style.top = `${y}px`;
 
-    document.body.appendChild(text);
+      document.body.appendChild(text);
 
-    // 3 saniye sonra sil
-    setTimeout(() => {
-      text.remove();
-    }, 3000);
-  });
-</script>
+      setTimeout(() => {
+        text.remove();
+      }, 3000);
+    }
+  </script>
 
 </body>
 </html>
