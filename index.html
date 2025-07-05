@@ -6,51 +6,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
       margin: 0;
+      background: black;
+      overflow: hidden;
+      font-family: 'Segoe Script', cursive;
     }
 
-    h1 {
+    .center-heart {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ff77e9;
       font-size: 3rem;
-      margin-bottom: 0.5rem;
+      text-shadow: 0 0 10px #ff77e9, 0 0 20px #ff77e9, 0 0 30px #ff77e9;
+      animation: neonPulse 2s ease-in-out infinite;
+      border: 3px solid #ff77e9;
+      border-radius: 50%;
+      padding: 2rem;
+      text-align: center;
+      width: 200px;
+      height: 200px;
+      line-height: 150px;
+      box-shadow: 0 0 15px #ff77e9;
     }
 
-    p {
+    @keyframes neonPulse {
+      0%, 100% {
+        box-shadow: 0 0 15px #ff77e9;
+      }
+      50% {
+        box-shadow: 0 0 30px #ff77e9, 0 0 60px #ff77e9;
+      }
+    }
+
+    .floating-heart {
+      position: absolute;
+      color: #ffb6c1;
       font-size: 1.2rem;
-      margin-bottom: 2rem;
+      animation: floatUp 5s linear infinite;
+      opacity: 0;
     }
 
-    .links a {
-      display: block;
-      margin: 0.5rem 0;
-      font-size: 1.1rem;
-      text-decoration: none;
-      color: #333;
-      border: 1px solid #ccc;
-      padding: 0.7rem 1.5rem;
-      border-radius: 8px;
-      transition: 0.3s;
-    }
-
-    .links a:hover {
-      background-color: #eee;
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Merhaba, ben Beril</h1>
-  <p>Beni sosyal medyada takip edebilirsin 👇</p>
-  <div class="links">
-    <a href="https://instagram.com/">Instagram</a>
-    <a href="https://github.com/">GitHub</a>
-    <a href="mailto:beril@example.com">Mail Gönder</a>
-  </div>
+
+<div class="center-heart">💖<br>Beril</div>
+
+<script>
+  function createFloatingHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('floating-heart');
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = "100vh";
+    heart.innerText = "💗 Beril";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 5000);
+  }
+
+  setInterval(createFloatingHeart, 400);
+</script>
+
 </body>
 </html>
