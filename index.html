@@ -7,7 +7,6 @@
   <style>
     body {
       margin: 0;
-      background-color: #000;
       height: 100vh;
       overflow: hidden;
       font-family: 'Segoe UI', 'Segoe Script', cursive;
@@ -17,12 +16,23 @@
       flex-direction: column;
       position: relative;
       cursor: pointer;
+
+      /* 🌸 Romantik arka plan */
+      background: linear-gradient(135deg, #ffe4f0, #e3d1ff, #d6c1ff);
+      background-size: 400% 400%;
+      animation: bgFlow 15s ease infinite;
+    }
+
+    @keyframes bgFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     svg {
       width: 240px;
       height: 240px;
-      stroke: #ff77e9;
+      stroke: #ff4da6;
       stroke-width: 4;
       fill: none;
       stroke-dasharray: 2000;
@@ -35,7 +45,7 @@
         stroke-dashoffset: 2000;
       }
       50% {
-        stroke-dashoffset: 1000; /* Yarım çiziliyor */
+        stroke-dashoffset: 1000;
       }
       100% {
         stroke-dashoffset: 0;
@@ -43,12 +53,12 @@
     }
 
     .name {
-      color: #ff77e9;
+      color: #ff4da6;
       font-size: 2.4rem;
       margin-top: -1.5rem;
       opacity: 0;
       animation: fadeInText 2s ease 6s forwards;
-      text-shadow: 0 0 15px #ff77e9, 0 0 25px #ff77e9;
+      text-shadow: 0 0 10px #ff4da6, 0 0 20px #ff4da6;
       pointer-events: none;
     }
 
@@ -60,14 +70,14 @@
 
     .floating-text {
       position: absolute;
-      color: #ffb6c1;
+      color: #ff4da6;
       font-size: 1.1rem;
       font-weight: bold;
       opacity: 0;
       animation: flyUp 3.5s ease forwards;
       pointer-events: none;
       white-space: nowrap;
-      text-shadow: 0 0 10px #ffb6c1, 0 0 20px #ff77e9;
+      text-shadow: 0 0 10px #ffb6d9, 0 0 20px #ff4da6;
     }
 
     @keyframes flyUp {
@@ -84,7 +94,7 @@
 </head>
 <body onclick="spawnMessage(event)">
 
-  <!-- Kalp SVG -->
+  <!-- Kalp çizimi -->
   <svg viewBox="0 0 512 512">
     <path d="M256 464s-186-116-186-271c0-70 57-127 127-127 39 0 73 18 95 47 22-29 56-47 95-47 70 0 127 57 127 127 0 155-186 271-186 271z"/>
   </svg>
